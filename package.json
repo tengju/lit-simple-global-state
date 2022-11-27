@@ -1,6 +1,6 @@
 {
   "name": "lit-simple-global-state",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "small and simple global state for lit elements",
   "main": "index.js",
   "scripts": {
