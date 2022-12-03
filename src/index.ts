@@ -1,6 +1,12 @@
 import { LitElement } from 'lit';
 
-export const StateManager = {
+export const StateManager: {
+    state: any;
+    listeners: Record<any, LitElement>;
+    subscribe: (id: any, element: LitElement) => void;
+    unsubscribe: (id: any) => void;
+    notify: () => void;    
+} = {
     state: new Proxy({}, {
         set: (target, key, value) => {
             target[key] = value;
@@ -23,15 +29,16 @@ export const StateManager = {
     },
     notify() {
         Object.values(this.listeners).forEach(
-            (listener) => listener.requestUpdate()
+            (listener: LitElement) => listener.requestUpdate()
         )
     }
 }
 
 export class GlobalState extends LitElement {
+    id: any;
     constructor() {
         super();
-        this.id = Symbol();
+        this.id = Symbol("LitId");
         StateManager.subscribe(this.id, this);
     }
 
