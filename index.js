@@ -4,7 +4,8 @@ export const StateManager = {
     state: new Proxy({}, {
         set: (target, key, value) => {
             target[key] = value;
-            StateManager.notify();
+            setTimeout(() => StateManager.notify(), 0);
+
             return true;
         }
     }),
@@ -24,5 +25,18 @@ export const StateManager = {
         Object.values(this.listeners).forEach(
             (listener) => listener.requestUpdate()
         )
+    }
+}
+
+export class GlobalState extends LitElement {
+    constructor() {
+        super();
+        this.id = Symbol();
+        StateManager.subscribe(this.id, this);
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        StateManager.unsubscribe(this.id);
     }
 }
