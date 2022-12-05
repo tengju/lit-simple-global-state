@@ -1,6 +1,6 @@
 {
   "name": "lit-simple-global-state",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "small and simple global state for lit elements",
   "main": "src/index.ts",
   "types": "types/index.d.ts",
