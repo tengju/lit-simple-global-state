@@ -19,9 +19,7 @@
     "url": "https://github.com/tengju/lit-simple-global-state/issues"
   },
   "homepage": "https://github.com/tengju/lit-simple-global-state#readme",
-  "dependencies": {
-    "lit": "^2.4.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "typescript": "^4.9.3"
   }

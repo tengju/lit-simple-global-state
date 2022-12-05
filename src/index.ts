@@ -1,12 +1,6 @@
-import { LitElement } from 'lit';
+import { IStateManager } from '../types';
 
-export const StateManager: {
-    state: any;
-    listeners: Record<any, LitElement>;
-    subscribe: (id: any, element: LitElement) => void;
-    unsubscribe: (id: any) => void;
-    notify: () => void;    
-} = {
+export const StateManager: IStateManager  = {
     state: new Proxy({}, {
         set: (target, key, value) => {
             target[key] = value;
@@ -17,11 +11,7 @@ export const StateManager: {
     }),
     listeners: {},
     subscribe(id, registeredClass) {
-        if (registeredClass instanceof LitElement) {
-            this.listeners[id] = registeredClass;
-            return;
-        }
-        console.warn("Must be an instance of LitElement")
+        this.listeners[id] = registeredClass;
     },
     unsubscribe(id) {
         if (!this.listeners[id]) return;
@@ -29,15 +19,14 @@ export const StateManager: {
     },
     notify() {
         Object.values(this.listeners).forEach(
-            (listener: LitElement) => listener.requestUpdate()
+            (listener: any) => listener.requestUpdate()
         )
     }
 }
 
-export class GlobalState extends LitElement {
-    id: any;
-    constructor() {
-        super();
+export const observe = (superclass: any) => class extends superclass {
+    connectedCallback() {
+        super.connectedCallback();
         this.id = Symbol("LitId");
         StateManager.subscribe(this.id, this);
     }
