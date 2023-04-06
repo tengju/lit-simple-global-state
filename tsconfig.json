@@ -8,6 +8,9 @@
             "es2020",
             "dom"
         ],
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "sourceMap": true,
         // Tells TypeScript to read JS files, as
         // normally they are ignored as source files
         "allowJs": true,

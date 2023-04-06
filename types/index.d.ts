@@ -1,7 +1,10 @@
 export interface IStateManager {
-    state: any;
-    listeners: Record<any, any>;
-    subscribe: (id: any, element: any) => void;
-    unsubscribe: (id: any) => void;
-    notify: () => void;
+  state: any;
+  defaultState: any;
+  listeners: any;
+  setDefaultState(state: any): void;
+  resetState(): void;
+  subscribe(id: string, registeredClass: any): void;
+  unsubscribe(id: string): void;
+  notify(): void;
 }
